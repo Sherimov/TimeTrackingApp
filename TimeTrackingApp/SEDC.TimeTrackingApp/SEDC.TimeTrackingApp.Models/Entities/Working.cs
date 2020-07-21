@@ -8,6 +8,7 @@ using System.Text;
 
 namespace SEDC.TimeTrackingApp.Models.Entities
 {
+    [Serializable]
     public class Working : Activities
     {
         public WorkingFrom WorkingFrom { get; set; }

@@ -19,7 +19,7 @@ namespace SEDC.TimeTrackingApp.Services.Activities
 
         public HobiesServices()
         {
-            if (!File.Exists("services.txt"))
+            if (!File.Exists("hobies.txt"))
             {
                 _hobiesDb = new ActivitiesDb<Hobie>();
                 return;
@@ -27,7 +27,7 @@ namespace SEDC.TimeTrackingApp.Services.Activities
 
             var formatter = new BinaryFormatter();
 
-            using (var stream = new FileStream("users.txt", FileMode.Open, FileAccess.Read))
+            using (var stream = new FileStream("hobies.txt", FileMode.Open, FileAccess.Read))
             {
                 _hobiesDb = (ActivitiesDb<Hobie>)formatter.Deserialize(stream);
             }
@@ -46,7 +46,7 @@ namespace SEDC.TimeTrackingApp.Services.Activities
         private void SaveHobie()
         {
             var formatter = new BinaryFormatter();
-            using (var stream = new FileStream("excercises.txt", FileMode.Create, FileAccess.Write))
+            using (var stream = new FileStream("hobies.txt", FileMode.Create, FileAccess.Write))
             {
                 formatter.Serialize(stream, _hobiesDb);
                 stream.Close();
@@ -78,7 +78,7 @@ namespace SEDC.TimeTrackingApp.Services.Activities
             if (listOfOtherHobbies.Count != 0)
             {
                 Console.WriteLine($"Total time: {totalTimeInSeconds / 3600} hours");
-                Console.WriteLine($"Average time: {totalTimeInSeconds / listOfOtherHobbies.Count}seconds");
+                Console.WriteLine($"Average time: {totalTimeInSeconds / listOfOtherHobbies.Count /60} minutes");
                 List<string> finalListWithHobbies = nameOfHobbies.Distinct().ToList();
                 Console.Write($"Name of new Hobbies:");
                 finalListWithHobbies.ForEach(i => Console.Write(i));

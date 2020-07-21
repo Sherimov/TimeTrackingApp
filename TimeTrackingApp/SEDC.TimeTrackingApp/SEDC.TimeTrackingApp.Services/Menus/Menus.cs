@@ -15,7 +15,7 @@ namespace SEDC.TimeTrackingApp.Services.Menus
                 var numberFromUser = ValidateNumber(Console.ReadLine(), range);
                 if (numberFromUser == -1)
                 {
-                    MessageHelper.Color("[Error] Wrong number entered. Please try again", ConsoleColor.Red);
+                    MessageHelper.Color("Wrong number entered, try again", ConsoleColor.Red);
                     continue;
                 }
                 return numberFromUser;

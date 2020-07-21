@@ -6,6 +6,7 @@ using System.Text;
 
 namespace SEDC.TimeTrackingApp.Models.Entities
 {
+    [Serializable]
     public class Hobie : Activities
     {
         public string NameOfHobie { get; set; }

@@ -6,6 +6,7 @@ using System.Text;
 
 namespace SEDC.TimeTrackingApp.Services.Activities
 {
+    
     public class ActivitiesServices : IActivitiesServices
     {
         public void Statistics()

@@ -7,6 +7,7 @@ using SEDC.TimeTrackingApp.Models.Models;
 
 namespace SEDC.TimeTrackingApp.Models.Entities
 {
+    [Serializable]
     public class Reading : Activities
     {
         public int Pages { get; set; }

@@ -56,8 +56,8 @@ namespace SEDC.TimeTrackingApp.App
                     {
                         case 1:
                             //Track time
-                            bool TrackMenu = true;
-                            while (TrackMenu)
+                            bool trackMenu = true;
+                            while (trackMenu)
                             {
                                 Console.Clear();
                                 switch (_menus.TrackMenu())
@@ -65,6 +65,9 @@ namespace SEDC.TimeTrackingApp.App
                                     case 1:
                                         //Reading
                                         Reading reading = new Reading();
+                                        reading.User = _user;
+                                        var timeSpentReading = _activitiesService.TimeSpentOnActivity("reading", _stopwatch);
+                                        reading.TimeSpentInSeconds += timeSpentReading;
                                         MessageHelper.Color("Please enter number of pages that you have read", ConsoleColor.Green);
                                         int numberOfPages;
                                         var isNumber = int.TryParse(Console.ReadLine(), out numberOfPages);
@@ -89,8 +92,8 @@ namespace SEDC.TimeTrackingApp.App
                                         //Excercising
                                         Exercising exercise = new Exercising();
                                         exercise.User = _user;
-                                        var timeSpent = _activitiesService.TimeSpentOnActivity("exercising", _stopwatch);
-                                        exercise.TimeSpentInSeconds += timeSpent;
+                                        var timeSpentExercising = _activitiesService.TimeSpentOnActivity("exercising", _stopwatch);
+                                        exercise.TimeSpentInSeconds += timeSpentExercising;
                                         switch (_menus.ExerciseMenu())
                                         {
                                             case 1:
@@ -104,12 +107,15 @@ namespace SEDC.TimeTrackingApp.App
                                                 break;
                                         }
                                         _exercisingService.StartExercise(exercise);
-                                        MessageHelper.Color($"{_user.LastName} you have been doing {exercise.TypeOfExercise} exercise for {timeSpent} seconds", ConsoleColor.Yellow);
+                                        MessageHelper.Color($"{_user.LastName} you have been doing {exercise.TypeOfExercise} exercise for {exercise.TimeSpentInSeconds} seconds", ConsoleColor.Yellow);
                                         Thread.Sleep(3000);
                                         break;
                                     case 3:
                                         //Working
                                         Working working = new Working();
+                                        working.User = _user;
+                                        var timeSpentWorking = _activitiesService.TimeSpentOnActivity("working", _stopwatch);
+                                        working.TimeSpentInSeconds += timeSpentWorking;
                                         switch (_menus.WorkingMenu())
                                         {
                                             case 1:
@@ -128,14 +134,17 @@ namespace SEDC.TimeTrackingApp.App
                                         MessageHelper.Color("What's the name of the new Hobby?", ConsoleColor.Green);
                                         var nameOfHobie = Console.ReadLine();
                                         Hobie hobie = _hobiesService.GetHobie(nameOfHobie) ?? new Hobie();
-                                        _hobiesService.InsertHobies(hobie);               
+                                        hobie.User = _user;
+                                        var timeSpentOnHobie = _activitiesService.TimeSpentOnActivity("hobie", _stopwatch);
+                                        hobie.TimeSpentInSeconds += timeSpentOnHobie;
+                                        _hobiesService.InsertHobies(hobie);
                                         MessageHelper.Color($"{_user.LastName} you have been doing your new hobbie {hobie.NameOfHobie} for {hobie.TimeSpentInSeconds} seconds", ConsoleColor.Yellow);
                                         Thread.Sleep(3000);
                                         break;
                                     case 5:
                                         MessageHelper.Color("Going back to Main Menu!", ConsoleColor.Green);
                                         Thread.Sleep(2000);
-                                        TrackMenu = false;
+                                        trackMenu = false;
                                         break;
                                 }
                             }

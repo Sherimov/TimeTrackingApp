@@ -13,10 +13,6 @@ namespace SEDC.TimeTrackingApp.Models.BaseModels
 
         public User User { get; set; }
 
-        public string StopwatchTimeToString(int seconds)
-        {
-            // change
-            return $"Your time for the actibity was {seconds/60} minutes and {seconds} seconds";
-        }
+        
     }
 }

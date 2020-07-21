@@ -17,7 +17,7 @@ namespace SEDC.TimeTrackingApp.Services.Activities
         private ActivitiesDb<Reading> _readingDb;
         public ReadingServices()
         {
-            if (!File.Exists("services.txt"))
+            if (!File.Exists("reading.txt"))
             {
                 _readingDb = new ActivitiesDb<Reading>();
                 return;
@@ -25,7 +25,7 @@ namespace SEDC.TimeTrackingApp.Services.Activities
 
             var formatter = new BinaryFormatter();
 
-            using (var stream = new FileStream("users.txt", FileMode.Open, FileAccess.Read))
+            using (var stream = new FileStream("reading.txt", FileMode.Open, FileAccess.Read))
             {
                 _readingDb = (ActivitiesDb<Reading>)formatter.Deserialize(stream);
             }
@@ -46,7 +46,7 @@ namespace SEDC.TimeTrackingApp.Services.Activities
         {
             var formatter = new BinaryFormatter();
 
-            using (var stream = new FileStream("excercises.txt", FileMode.Create, FileAccess.Write))
+            using (var stream = new FileStream("reading.txt", FileMode.Create, FileAccess.Write))
             {
                 formatter.Serialize(stream, _readingDb);
                 stream.Close();

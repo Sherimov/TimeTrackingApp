@@ -13,13 +13,14 @@ using System.Text;
 
 namespace SEDC.TimeTrackingApp.Services.Activities
 {
+    [Serializable]
     public class ExercisingServices<T> : IStatisticInterface where T : Exercising
     {
         private ActivitiesDb<Exercising> _exercisingDb;
 
         public ExercisingServices()
         {
-            if (!File.Exists("excercises.txt"))
+            if (!File.Exists("exercise.txt"))
             {
                 _exercisingDb = new ActivitiesDb<Exercising>();
                 return;
@@ -27,7 +28,7 @@ namespace SEDC.TimeTrackingApp.Services.Activities
 
             var formatter = new BinaryFormatter();
 
-            using (var stream = new FileStream("excercises.txt", FileMode.Open, FileAccess.Read))
+            using (var stream = new FileStream("exercise.txt", FileMode.Open, FileAccess.Read))
             {
                 _exercisingDb = (ActivitiesDb<Exercising>)formatter.Deserialize(stream);
             }
@@ -48,7 +49,7 @@ namespace SEDC.TimeTrackingApp.Services.Activities
         {
             var formatter = new BinaryFormatter();
 
-            using (var stream = new FileStream("excercises.txt", FileMode.Create, FileAccess.Write))
+            using (var stream = new FileStream("exercise.txt", FileMode.Create, FileAccess.Write))
             {
                 formatter.Serialize(stream, _exercisingDb);
                 stream.Close();

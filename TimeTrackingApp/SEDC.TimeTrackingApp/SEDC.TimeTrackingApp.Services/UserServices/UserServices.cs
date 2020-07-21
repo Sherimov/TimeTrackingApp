@@ -12,6 +12,7 @@ using System.Threading;
 
 namespace SEDC.TimeTrackingApp.Services.UserServices
 {
+    [Serializable]
     public class UserServices : IUserService
     {
         private UserDb _userDb;
